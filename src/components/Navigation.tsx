@@ -1,4 +1,4 @@
-import { Home, Camera, Book, Users, Menu, Languages } from "lucide-react";
+import { Home, Camera, Book, Users, Menu, Languages, MessageSquare } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,16 +7,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navigation = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const { t, toggleLanguage, language } = useLanguage();
 
   const navItems = [
-    { path: "/", label: "Home", icon: Home },
-    { path: "/scan", label: "Scan Crop", icon: Camera },
-    { path: "/knowledge", label: "Knowledge", icon: Book },
-    { path: "/community", label: "Community", icon: Users },
+    { path: "/", label: t('nav.home'), icon: Home },
+    { path: "/scan", label: t('nav.scan'), icon: Camera },
+    { path: "/knowledge", label: t('nav.knowledge'), icon: Book },
+    { path: "/community", label: t('nav.community'), icon: Users },
+    { path: "/chat", label: t('nav.chat'), icon: MessageSquare },
   ];
 
   const NavLinks = ({ mobile = false }) => (
@@ -61,8 +64,14 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="icon" className="hidden sm:flex">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={toggleLanguage}
+              className="hidden sm:flex gap-2"
+            >
               <Languages className="w-4 h-4" />
+              {language === 'en' ? 'తెలుగు' : 'English'}
             </Button>
 
             {/* Mobile Navigation */}
@@ -76,9 +85,16 @@ const Navigation = () => {
                 <div className="flex flex-col gap-4 mt-8">
                   <NavLinks mobile />
                   <div className="border-t pt-4">
-                    <Button variant="outline" className="w-full justify-start">
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => {
+                        toggleLanguage();
+                        setIsOpen(false);
+                      }}
+                    >
                       <Languages className="w-4 h-4 mr-2" />
-                      తెలుగు / English
+                      {language === 'en' ? 'తెలుగు' : 'English'}
                     </Button>
                   </div>
                 </div>
