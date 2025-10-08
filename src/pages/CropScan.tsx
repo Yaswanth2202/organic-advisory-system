@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import FormattedAIResponse from "@/components/FormattedAIResponse";
 
 const CropScan = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -197,11 +198,7 @@ const CropScan = () => {
                     className="w-full h-48 object-cover"
                   />
                 </div>
-                <div className="prose prose-sm max-w-none dark:prose-invert">
-                  <div className="whitespace-pre-wrap bg-muted p-4 rounded-lg">
-                    {result}
-                  </div>
-                </div>
+                <FormattedAIResponse content={result} />
               </CardContent>
             </Card>
 

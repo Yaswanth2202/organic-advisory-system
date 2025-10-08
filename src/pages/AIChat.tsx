@@ -6,6 +6,7 @@ import { Send, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import FormattedAIResponse from '@/components/FormattedAIResponse';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -135,7 +136,11 @@ const AIChat = () => {
                       className="rounded-lg mb-2 max-w-full h-auto"
                     />
                   )}
-                  <p className="whitespace-pre-wrap">{message.content}</p>
+                  {message.role === 'assistant' ? (
+                    <FormattedAIResponse content={message.content} />
+                  ) : (
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                  )}
                 </div>
               </div>
             ))}

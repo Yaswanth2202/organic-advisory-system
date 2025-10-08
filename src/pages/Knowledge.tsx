@@ -4,16 +4,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Knowledge = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const categories = [
-    { id: "pest", name: "Pest Control", icon: Bug, color: "bg-destructive/10 text-destructive" },
-    { id: "nutrition", name: "Crop Nutrition", icon: Leaf, color: "bg-primary/10 text-primary" },
-    { id: "seasonal", name: "Seasonal Tips", icon: Calendar, color: "bg-accent/10 text-accent" },
-    { id: "water", name: "Water Management", icon: Droplets, color: "bg-secondary/10 text-secondary" }
+    { id: "pest", nameKey: "knowledge.filter.pest", icon: Bug, color: "bg-destructive/10 text-destructive" },
+    { id: "nutrition", nameKey: "knowledge.filter.crop", icon: Leaf, color: "bg-primary/10 text-primary" },
+    { id: "seasonal", nameKey: "knowledge.filter.seasonal", icon: Calendar, color: "bg-accent/10 text-accent" },
+    { id: "water", nameKey: "knowledge.filter.water", icon: Droplets, color: "bg-secondary/10 text-secondary" }
   ];
 
   const knowledgeArticles = [
@@ -85,9 +87,9 @@ const Knowledge = () => {
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Knowledge Database</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{t('knowledge.title')}</h1>
           <p className="text-muted-foreground text-lg">
-            Traditional wisdom meets modern science for organic farming
+            {t('knowledge.subtitle')}
           </p>
         </div>
 
@@ -98,7 +100,7 @@ const Knowledge = () => {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
                 <Input
-                  placeholder="Search farming practices, pest control, seasonal tips..."
+                  placeholder={t('knowledge.search')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 h-12 text-base"
@@ -112,7 +114,7 @@ const Knowledge = () => {
                   size="sm"
                 >
                   <Filter className="w-4 h-4 mr-2" />
-                  All Topics
+                  {t('knowledge.filter.all')}
                 </Button>
                 {categories.map((category) => {
                   const Icon = category.icon;
@@ -126,7 +128,7 @@ const Knowledge = () => {
                       size="sm"
                     >
                       <Icon className="w-4 h-4 mr-2" />
-                      {category.name}
+                      {t(category.nameKey)}
                     </Button>
                   );
                 })}
@@ -138,7 +140,7 @@ const Knowledge = () => {
         {/* Results Count */}
         <div className="mb-4">
           <p className="text-sm text-muted-foreground">
-            Showing {filteredArticles.length} {filteredArticles.length === 1 ? 'article' : 'articles'}
+            {t('knowledge.showing')} {filteredArticles.length} {filteredArticles.length === 1 ? t('knowledge.article') : t('knowledge.articles')}
           </p>
         </div>
 
@@ -171,7 +173,7 @@ const Knowledge = () => {
                   <div className="flex items-center justify-between text-sm text-muted-foreground">
                     <span>{article.readTime}</span>
                     <Button variant="ghost" size="sm" className="group-hover:text-primary">
-                      Read More →
+                      {t('knowledge.readMore')}
                     </Button>
                   </div>
                 </CardContent>
@@ -183,9 +185,9 @@ const Knowledge = () => {
         {filteredArticles.length === 0 && (
           <Card className="p-12 text-center">
             <Book className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="text-xl font-semibold mb-2">No articles found</h3>
+            <h3 className="text-xl font-semibold mb-2">{t('knowledge.noResults')}</h3>
             <p className="text-muted-foreground">
-              Try adjusting your search or filters to find what you're looking for
+              {t('knowledge.noResultsDesc')}
             </p>
           </Card>
         )}
@@ -195,15 +197,15 @@ const Knowledge = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Book className="w-5 h-5" />
-              Can't find what you're looking for?
+              {t('knowledge.help.title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground mb-4">
-              Visit our community forum to ask questions and learn from fellow farmers' experiences
+              {t('knowledge.help.desc')}
             </p>
             <Button>
-              Visit Community Forum
+              {t('knowledge.help.button')}
             </Button>
           </CardContent>
         </Card>

@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Community = () => {
+  const { t } = useLanguage();
   const [showNewPost, setShowNewPost] = useState(false);
 
   const posts = [
@@ -69,9 +71,9 @@ const Community = () => {
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Community Forum</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{t('community.title')}</h1>
           <p className="text-muted-foreground text-lg">
-            Share experiences, ask questions, and learn from fellow farmers
+            {t('community.subtitle')}
           </p>
         </div>
 
@@ -81,21 +83,21 @@ const Community = () => {
             <CardContent className="p-4 text-center">
               <Users className="w-6 h-6 mx-auto mb-2 text-primary" />
               <p className="text-2xl font-bold">1,247</p>
-              <p className="text-xs text-muted-foreground">Active Members</p>
+              <p className="text-xs text-muted-foreground">{t('community.members')}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <MessageSquare className="w-6 h-6 mx-auto mb-2 text-accent" />
               <p className="text-2xl font-bold">3,892</p>
-              <p className="text-xs text-muted-foreground">Discussions</p>
+              <p className="text-xs text-muted-foreground">{t('community.discussions')}</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <ThumbsUp className="w-6 h-6 mx-auto mb-2 text-secondary" />
               <p className="text-2xl font-bold">856</p>
-              <p className="text-xs text-muted-foreground">Success Stories</p>
+              <p className="text-xs text-muted-foreground">{t('community.stories')}</p>
             </CardContent>
           </Card>
         </div>
@@ -110,21 +112,21 @@ const Community = () => {
                 onClick={() => setShowNewPost(true)}
               >
                 <Plus className="w-5 h-5 mr-2" />
-                Share Your Experience or Ask a Question
+                {t('community.newPost')}
               </Button>
             ) : (
               <div className="space-y-4">
                 <Textarea
-                  placeholder="Share your farming experience, success story, or ask a question to the community..."
+                  placeholder={t('community.placeholder')}
                   className="min-h-32 text-base"
                 />
                 <div className="flex gap-2">
-                  <Button>Post to Community</Button>
+                  <Button>{t('community.post')}</Button>
                   <Button 
                     variant="outline"
                     onClick={() => setShowNewPost(false)}
                   >
-                    Cancel
+                    {t('community.cancel')}
                   </Button>
                 </div>
               </div>
@@ -186,7 +188,7 @@ const Community = () => {
                   </Button>
                   <Button variant="ghost" size="sm" className="gap-2">
                     <Share2 className="w-4 h-4" />
-                    Share
+                    {t('community.share')}
                   </Button>
                 </div>
               </CardContent>
@@ -199,15 +201,15 @@ const Community = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="w-5 h-5" />
-              Need Expert Advice?
+              {t('community.expert.title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <CardDescription className="text-base mb-4">
-              Connect with agricultural experts and experienced farmers for personalized guidance
+              {t('community.expert.desc')}
             </CardDescription>
             <Button variant="secondary">
-              Schedule Expert Consultation
+              {t('community.expert.button')}
             </Button>
           </CardContent>
         </Card>

@@ -33,14 +33,14 @@ serve(async (req) => {
         messages: [
           {
             role: 'system',
-            content: 'You are an expert agricultural advisor specializing in organic farming for tribal communities. Analyze crop images to identify diseases, pests, and issues. Provide practical organic solutions using locally available materials. Keep responses clear, actionable, and culturally sensitive.'
+            content: 'You are an agricultural expert. Analyze crop images and provide CONCISE, STRUCTURED responses. Use this exact format:\n\n🌱 CROP: [name]\n📊 STATUS: [healthy/mild issue/serious issue]\n🐛 PROBLEM: [brief description or "None detected"]\n💊 SOLUTION: [2-3 specific organic treatments]\n🛡️ PREVENTION: [1-2 key preventive steps]\n\nKeep each section to 1-2 lines maximum. Be direct and practical.'
           },
           {
             role: 'user',
             content: [
               {
                 type: 'text',
-                text: 'Analyze this crop image and provide: 1) Crop type identification, 2) Health status, 3) Any diseases or pests detected, 4) Organic treatment recommendations using local materials, 5) Preventive measures'
+                text: 'Analyze this crop image. Provide a brief, structured analysis following the exact format given in your system prompt.'
               },
               {
                 type: 'image_url',
